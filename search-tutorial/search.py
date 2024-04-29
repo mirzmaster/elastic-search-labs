@@ -46,3 +46,6 @@ class Search:
         bulk_response = self.es.bulk(operations=operations)
         print('Bulk inserted!')
         return bulk_response
+
+    def search(self, **query_args):
+        return self.es.search(index='my_documents', **query_args)
