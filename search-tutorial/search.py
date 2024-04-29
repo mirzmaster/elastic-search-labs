@@ -16,12 +16,18 @@ class Search:
         print('Connected to Elasticsearch!')
         pprint(client_info.body)
 
+    def reindex(self):
+        self.create_index()
+        with open('data.json', 'rt') as f:
+            documents = json.loads(f.read())
+        self.insert_documents(documents)
+
     def create_index(self):
         self.es.indices.delete(index='my_documents', ingore_unavailable=True)
         self.es.indices.create(index='my_documents')
         print('Index created!')
 
-    def insert_document(self, documents):
+    def insert_documents(self, documents):
         operations = []
         for document in documents:
             operations.append(
