@@ -21,3 +21,11 @@ def handle_search():
 @app.get('/document/<id>')
 def get_document(id):
     return 'Document not found'
+
+
+@app.cli.command()
+def reindex():
+    """Regenerate the Elasticsearch index."""
+    response = es.reindex()
+    print(f'Index with {len(response["items"])} documents created '
+          f'in {response["took"]} milliseconds.')
