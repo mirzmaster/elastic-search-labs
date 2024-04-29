@@ -21,7 +21,17 @@ class Search:
         self.es.indices.create(index='my_documents')
         print('Index created!')
 
-    def insert_document(self, document):
-        insert_response = self.es.index(index='my_documents', body=document)
-        print('Document inserted!')
-        return insert_response
+    def insert_document(self, documents):
+        operations = []
+        for document in documents:
+            operations.append(
+                {
+                    'index': {
+                        '_index': 'my_documents'
+                    }
+                }
+            )
+            operations.append(document)
+        bulk_response = self.es.bulk(operations=operations)
+        print('Bulk inserted!')
+        return bulk_response
