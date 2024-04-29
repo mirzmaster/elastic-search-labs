@@ -23,7 +23,7 @@ class Search:
         self.insert_documents(documents)
 
     def create_index(self):
-        self.es.indices.delete(index='my_documents', ingore_unavailable=True)
+        self.es.indices.delete(index='my_documents', ignore_unavailable=True)
         self.es.indices.create(index='my_documents')
         print('Index created!')
 
