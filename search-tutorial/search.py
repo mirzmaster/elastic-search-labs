@@ -20,7 +20,7 @@ class Search:
         self.create_index()
         with open('data.json', 'rt') as f:
             documents = json.loads(f.read())
-        self.insert_documents(documents)
+        return self.insert_documents(documents)
 
     def create_index(self):
         self.es.indices.delete(index='my_documents', ignore_unavailable=True)
