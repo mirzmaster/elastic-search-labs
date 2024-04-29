@@ -20,7 +20,7 @@ def handle_search():
                 'query': query,
                 'fields': ['name', 'summary', 'content'],
             }
-        }
+        }, size=5
     )
     return render_template(
         'index.html', query=query, results=results['hits']['hits'],
