@@ -14,17 +14,18 @@ def index():
 @app.post('/')
 def handle_search():
     query = request.form.get('query', '')
+    from_ = request.form.get('from_', type=int, default=0)
     results = es.search(
         query={
             'multi_match': {
                 'query': query,
                 'fields': ['name', 'summary', 'content'],
             }
-        }, size=5
+        }, size=5, from_=from_
     )
     return render_template(
         'index.html', query=query, results=results['hits']['hits'],
-        from_=0, total=results['hits']['total']['value']
+        from_=from_, total=results['hits']['total']['value']
     )
 
 
