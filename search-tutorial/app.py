@@ -16,10 +16,9 @@ def handle_search():
     query = request.form.get('query', '')
     results = es.search(
         query={
-            'match': {
-                'name': {
-                    'query': query
-                }
+            'multi_match': {
+                'query': query,
+                'fields': ['name', 'summary', 'content'],
             }
         }
     )
